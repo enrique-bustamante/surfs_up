@@ -5,8 +5,8 @@ import numpy as np
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
-from sqlalchemy import create_engine, func
-from flask import Flask, jsonify
+from sqlalchemy import create_engine, func, extract
+from flask import Flask, jsonify, render_template
 
 # %%
 # Create the engine for connection
@@ -99,10 +99,23 @@ def stats(start=None, end=None):
     
 # %%
 # Create the June statistical summary route
-#@app.route("/api/v1.0/june-stats")
+@app.route("/api/v1.0/june-stats")
+def june_stats():
+    june_results = session.query(Measurement.date,Measurement.tobs, Measurement.prcp).\
+        filter(extract('month',Measurement.date) == 6).all()
+    june_df = pd.DataFrame(june_results, columns=['date', 'temperature', 'precipitation'])
+    june_df.set_index(june_df['date'], inplace=True)
+    june_stats = june_df.describe()
+    return june_stats.to_html()
 
 # %%
 # Create the December statistical summary route
-#@app.route("/api/v1.0/dec-stats")
-
+@app.route("/api/v1.0/dec-stats")
+def dec_stats():
+    dec_results = session.query(Measurement.date,Measurement.tobs, Measurement.prcp).\
+        filter(extract('month',Measurement.date) == 12).all()
+    dec_df = pd.DataFrame(dec_results, columns=['date', 'temperature', 'precipitation'])
+    dec_df.set_index(dec_df['date'], inplace=True)
+    dec_stats = dec_df.describe()
+    return dec_stats.to_html()
 # %%
