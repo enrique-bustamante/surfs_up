@@ -37,12 +37,15 @@ app = Flask(__name__)
 def welcome():
     return(
     '''
-    Welcome to the Climate Analysis API!
-    Available Routes:
-    /api/v1.0/precipitation
-    /api/v1.0/stations
-    /api/v1.0/tobs
-    /api/v1.0/temp/start/end
+    Welcome to the Climate Analysis API!<br>
+    <br>
+    Available Routes:<br>
+    <a href="/api/v1.0/precipitation">/api/v1.0/precipitation</a><br>
+    <a href="/api/v1.0/stations">/api/v1.0/stations</a><br>
+    <a href="/api/v1.0/tobs">/api/v1.0/tobs</a><br>
+    <a href="/api/v1.0/start/end">/api/v1.0/temp/start/end</a><br>
+    <a href="/api/v1.0/june-stats">/api/v1.0/june-stats</a><br>
+    <a href="/api/v1.0/dec-stats">/api/v1.0/dec-stats</a><br>
     ''')
 
 
@@ -96,6 +99,10 @@ def stats(start=None, end=None):
     
 # %%
 # Create the June statistical summary route
+#@app.route("/api/v1.0/june-stats")
 
 # %%
 # Create the December statistical summary route
+#@app.route("/api/v1.0/dec-stats")
+
+# %%
