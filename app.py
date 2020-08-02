@@ -119,3 +119,6 @@ def dec_stats():
     dec_stats = dec_df.describe()
     return dec_stats.to_html()
 # %%
+type(june_stats)
+
+# %%
